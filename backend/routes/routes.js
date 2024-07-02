@@ -63,7 +63,14 @@ router.post('/api/signup', async (req, res) => {
 
     res.json({ status: 'success', message: 'Signup successful!' });
 });
-
+router.get('/api/leaderboard', async (req, res) => {
+    try {
+      const leaderboard = await results.find().sort({ marksObtained: -1 }); // Sorting by marksObtained in descending order
+      res.json(leaderboard);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching leaderboard data', error });
+    }
+  });
 router.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     useremail = email;

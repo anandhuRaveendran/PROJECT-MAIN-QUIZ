@@ -10,7 +10,7 @@ const NavBar = () => {
                     <img src="src/assets/images/logo.svg" className="h-8" alt="quizapp Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QuizApp</span>
                 </a>
-                <div className="flex md:order-2">
+                <div className="flex md:order-2 ml-6">
                     <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
                         aria-expanded="false"
                         className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
@@ -107,7 +107,7 @@ const NavBar = () => {
                 </li>
 
                 <li>
-                    <a href="/logout"
+                    <a href="/"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
                         {/* <!-- <img src="src/assets/images/leaderboard.svg"
                             className="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
