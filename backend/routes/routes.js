@@ -4,10 +4,14 @@ const users = require('../Models/Users');
 const quizes = require('../Models/Quizes');
 const results = require("../Models/QuizResults");
 let useremail = ''
-// router.get("/home", async (req, res) => {
-//     const user_details = await quizes.find({ visibility: true });
-//     res.json(user_details);
-// });
+
+router.get("/api/get-quiz/:joinID", async (req, res) => {
+    const id=req.params.joinID
+    console.log(id)
+    const quizdata = await quizes.findOne({ joinid:id });
+    console.log(quizdata)
+    res.json(quizdata);
+});
 
 
 router.get("/home", async (req, res) => {

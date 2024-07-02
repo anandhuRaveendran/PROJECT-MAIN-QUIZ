@@ -1,8 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
+// eslint-disable-next-line no-unused-vars
+let aboutemail=''
 const Profile = () => {
+    
     const [history, setHistory] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
 
@@ -11,7 +12,7 @@ const Profile = () => {
             try {
                 const res = await fetch('http://localhost:5000/results');
                 const historydata = await res.json();
-                console.log(historydata)
+                if(historydata){aboutemail=historydata[0].username}
                 setHistory(historydata);
             } catch (error) {
                 console.log('error', error);
@@ -21,6 +22,7 @@ const Profile = () => {
             try {
                 const res = await fetch('http://localhost:5000/myquizes');
                 const quizdata = await res.json();
+                if(quizdata){aboutemail=quizdata[0].creator}
                 console.log(quizdata)
 
                 setQuizzes(quizdata);
@@ -31,25 +33,6 @@ const Profile = () => {
         fetchHistory();
         fetchQuiz()
     },
-    //{
-    //     // Fetch history data
-    //     axios.get('API_ENDPOINT_FOR_HISTORY')
-    //         .then(response => {
-
-    //         })
-    //         .catch(error => {
-    //             console.error('There was an error fetching the history data!', error);
-    //         });
-
-    //     // Fetch quizzes data
-    //     axios.get('API_ENDPOINT_FOR_QUIZZES')
-    //         .then(response => {
-    //             setQuizzes(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.error('There was an error fetching the quizzes data!', error);
-    //         });
-    // }, 
     []);
     return (
         <>
@@ -60,7 +43,7 @@ const Profile = () => {
                         <h1 className="text-gray-600 dark:text-gray-200 font-bold">
                             Anandu Raveendran
                         </h1>
-                        <p className="text-gray-400 flex-wrap"></p>
+                        <p className="text-gray-400 flex-wrap">{aboutemail}</p>
                     </div>
                 </div>
 
@@ -88,7 +71,6 @@ const Profile = () => {
                             </thead>
                             <tbody className="flex-wrap">
                                 {history.map((item, index) => (
-                                    // let marks=JSON.parse(item.result),
                                     <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 flex-wrap">
                                         <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                             <img className="w-10 h-10 rounded-full" src="src/assets/images/logo.svg" alt="Quiz Logo" />
@@ -99,7 +81,7 @@ const Profile = () => {
                                         <td className="px-6 py-4">{item.marksObtained}</td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center">
-                                                <div className={`h-2.5 w-2.5 rounded-full ${item.status === 'passed' ? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {item.status}
+                                                <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >=3? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {item.status}
                                             </div>
                                         </td>
                                     </tr>
