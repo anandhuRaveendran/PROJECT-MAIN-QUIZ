@@ -53,13 +53,13 @@ const CreateQuiz = () => {
         e.preventDefault();
         const creator = 0;
         const joinid=isPrivate==true?unique_id.slice(0, 8):0;
-
+        const active=true;
         const response = await fetch('http://localhost:5000/api/addQuiz', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({creator, questions, category, isPrivate , joinid,quizTitle,thumbnail}),
+          body: JSON.stringify({creator, questions, category, isPrivate , joinid,quizTitle,thumbnail,active}),
         });
     
         const data = await response.json();

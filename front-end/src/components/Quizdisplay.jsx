@@ -51,14 +51,17 @@ const Quizdisplay = () => {
         const resultData = {
             username:"",
             quizid: quiz._id,
+            quizTitle:quiz.quizTitle,
+            marksObtained: score ,
             result: JSON.stringify({
                 totalQuestions: quiz.questions.length,
                 correctAnswers: score,
                 incorrectAnswers: quiz.questions.length - score,
-                marksObtained: score * 2,
-                totalMarks: quiz.questions.length * 2
+                
+                totalMarks: quiz.questions.length
             }),
             qna: quiz.questions.map((question, index) => ({
+
                 question: question.question,
                 options: question.options,
                 correctAnswer: question.answer,

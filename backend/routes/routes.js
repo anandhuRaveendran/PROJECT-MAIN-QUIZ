@@ -11,7 +11,7 @@ let useremail = ''
 
 
 router.get("/home", async (req, res) => {
-    const quiz_mainlist = await quizes.find({isPrivate:false});
+    const quiz_mainlist = await quizes.find({isPrivate:false,active:true});
     res.json(quiz_mainlist);
 });
 
@@ -91,16 +91,14 @@ router.post("/api/addQuiz", async (req, res) => {
 //     res.json(user_details);
 // });
 
-router.get("/user_profile", async (req, res) => {
+router.get("/myquizes", async (req, res) => {
 
-    const name = req.body.username;
-    const user_quizez = await quizes.find({ username: name });
+    const user_quizez = await quizes.find({ creator: useremail });
     res.json(user_quizez);
 });
 
-router.get("/user_profile", async (req, res) => {
-    const name = req.body.username;
-    const quiz_history = await results.find({ username: name });
+router.get("/results", async (req, res) => {
+    const quiz_history = await results.find({ username: useremail });
     res.json(quiz_history);
 });
 

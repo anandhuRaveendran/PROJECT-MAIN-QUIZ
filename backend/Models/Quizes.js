@@ -8,8 +8,8 @@ const quizSchema = new Schema({
    isPrivate: { type: Boolean, required: true },
    joinid: { type: String, required: false },
    quizTitle:{type:String,required:false},
-   thumbnail:{type:String,required:false}
-   
+   thumbnail:{type:String,required:false},
+   active:{type:Boolean,required:true}
 
 });
 
