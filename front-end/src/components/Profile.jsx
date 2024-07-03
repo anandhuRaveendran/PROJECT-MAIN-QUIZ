@@ -81,7 +81,7 @@ const Profile = () => {
                                         <td className="px-6 py-4">{item.marksObtained}</td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center">
-                                                <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >=3? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {item.status}
+                                                <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >=3? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {item.marksObtained>=3 ? 'PASSED':'FAILED'}
                                             </div>
                                         </td>
                                     </tr>
