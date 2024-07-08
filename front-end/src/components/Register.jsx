@@ -39,7 +39,7 @@ const Register = () => {
     <>
       <body>
         <div className="h-[100vh] items-center flex justify-center px-5 lg:px-0">
-          <div className="max-w-screen-xl bg-white border shadow sm:rounded-lg flex justify-center h-[700px] flex-1">
+          <div className="max-w-screen-xl bg-white border shadow-2xl sm:rounded-lg flex justify-center h-[700px] flex-1 ">
             <div className="flex-1 bg-white-900 text-center hidden md:flex">
               <div className="w-full bg-contain bg-fill bg-no-repeat bg-[url('src/assets/images/loginlogo.jpg')]">
               </div>

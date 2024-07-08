@@ -106,8 +106,8 @@ const Quizdisplay = () => {
     };
 
     return (
-        <div className="p-4 sm:ml-64">
-            <div className="p-4 border-2 bg-gray-100 rounded-lg dark:border-gray-700 mt-[80px]">
+        <div className="p-4 sm:ml-64 ">
+            <div className="p-4 border-2 bg-gray-100 rounded-lg dark:border-gray-700 mt-[80px] ">
                 <div className="text-center mb-4">
                     <h2 className="text-2xl font-bold">{quiz.quizTitle}</h2>
                     <div className="text-xl">Time left: {timeLeft}s</div>

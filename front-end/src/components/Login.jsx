@@ -29,8 +29,8 @@ const Login = () => {
   };
   return (
 <>
-<div className="h-[100vh] items-center flex justify-center px-5 lg:px-0">
-        <div className="max-w-screen-xl bg-white border shadow sm:rounded-lg flex h-[700px] justify-center flex-1">
+<div className="h-[100vh] items-center flex justify-center px-5 lg:px-0 ">
+        <div className="max-w-screen-xl bg-white border  sm:rounded-lg flex h-[700px] justify-center flex-1 shadow-2xl	rounded-lg">
           <div className="flex-1 bg-white-900 text-center hidden md:flex">
             <div
             className=" w-full bg-contain  bg-no-repeat bg-[url('src/assets/images/login.jpg')]">

@@ -46,7 +46,7 @@ console.log(qna)
         //         </div>
         //     </div>
         // </div>
-        <div className="flex min-h-screen sm:p-10 justify-center items-center bg-[#c8c7ff]">
+        <div className="flex min-h-screen sm:p-10 justify-center items-center bg-[url('./assets/images/background.jpg')] border-2 shadow-2xl ">
 
         <div className="flex flex-col sm:flex-row sm:w-[60rem] sm:h-[40rem] sm:rounded-3xl h-full w-full sm:shadow-lg bg-white">
         <div className="flex sm:basis-1/2 flex-col items-center justify-center bg-gradient-to-b to-[#2e2be9] from-[#7857ff] sm:rounded-3xl rounded-b-3xl py-7 px-10">
