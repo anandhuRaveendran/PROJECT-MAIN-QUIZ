@@ -1,9 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // eslint-disable-next-line no-unused-vars
-let aboutemail=''
+let aboutemail = ''
 const Profile = () => {
-    
+const navigate=useNavigate();
     const [history, setHistory] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
 
@@ -12,28 +14,53 @@ const Profile = () => {
             try {
                 const res = await fetch('http://localhost:5000/results');
                 const historydata = await res.json();
-                if(historydata){aboutemail=historydata[0].username}
+                if (historydata) { aboutemail = historydata[0].username }
                 setHistory(historydata);
             } catch (error) {
                 console.log('error', error);
             }
         };
-        const fetchQuiz= async () => {
+        const fetchQuiz = async () => {
             try {
                 const res = await fetch('http://localhost:5000/myquizes');
                 const quizdata = await res.json();
-                if(quizdata){aboutemail=quizdata[0].creator}
-                console.log(quizdata)
+                if (quizdata) { aboutemail = quizdata[0].creator }
 
                 setQuizzes(quizdata);
             } catch (error) {
                 console.log('error', error);
             }
-        }; 
+        };
         fetchHistory();
         fetchQuiz()
     },
-    []);
+        []);
+    const handleDelete = async (quiz) => {
+        console.log(quiz._id)
+        try {
+            // eslint-disable-next-line no-unused-vars
+            const response = await fetch(`http://localhost:5000/delete/${quiz._id}`, {
+                method: 'DELETE',
+            });
+            const data = await response.json()
+            console.log(data)
+            navigate('/profile')
+
+
+        }
+
+
+        catch (error) {
+            console.log(error)
+        }finally{
+            navigate('/profile')
+
+        }
+        
+    }
+    const handleSelect=async (value)=>{
+console.log(value)
+    }
     return (
         <>
             <div className="p-4 sm:ml-64">
@@ -78,10 +105,10 @@ const Profile = () => {
                                                 <div className="text-base font-semibold">{item.quizTitle}</div>
                                             </div>
                                         </th>
-                                        <td className="px-6 py-4">{item.marksObtained}</td>
+                                        <td className="px-6 py-4">{item.marksObtained * 10}</td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center">
-                                                <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >=3? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {item.marksObtained>=3 ? 'PASSED':'FAILED'}
+                                                <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >= 3 ? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {item.marksObtained >= 3 ? 'PASSED' : 'FAILED'}
                                             </div>
                                         </td>
                                     </tr>
@@ -111,6 +138,8 @@ const Profile = () => {
                                     <th scope="col" className="px-6 py-3">Quiz Name</th>
                                     <th scope="col" className="px-6 py-3">Status</th>
                                     <th scope="col" className="px-6 py-3">View</th>
+                                    <th scope="col" className="px-6 py-3">Delete</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -122,12 +151,24 @@ const Profile = () => {
                                             </div>
                                         </th>
                                         <td className="px-6 py-4">
-                                            <div className="flex items-center">
-                                                <div className={`h-2.5 w-2.5 rounded-full ${quiz.active === true ? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {quiz.active==true?'Active':'Closed'}
+                                            <div className="flex items-center"><div className={`h-2.5 w-2.5 rounded-full ${quiz.active === true ? 'bg-green-500' : 'bg-red-500'} me-2`}></div>
+                                                <select id="countries"value={quiz.active==true?'Active':'Closed'} onChange={() => handleSelect()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                             focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                      <option selected value={quiz.active==true?'Active':'Closed'}>{quiz.active==true?'Active':'Closed'}</option>
+                                                      <option value={quiz.active==true?'false':'true'}>{quiz.active==true?'Closed':'Active'}</option>
+                                                    {/* <option value="false">Close</option> */}
+
+                                                </select>
+
+                                                {/* <div className={`h-2.5 w-2.5 rounded-full ${quiz.active === true ? 'bg-green-500' : 'bg-red-500'} me-2`}></div> {quiz.active == true ? 'Active' : 'Closed'} */}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <a href="/viewquiz" type="button" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                         dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" onClick={() => handleDelete(quiz)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))}

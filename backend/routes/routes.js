@@ -112,5 +112,19 @@ router.get("/results", async (req, res) => {
     const quiz_history = await results.find({ username: useremail });
     res.json(quiz_history);
 });
-
+router.delete('/delete/:quiz_id',async(req,res)=>{
+    console.log(req.params.quiz_id)
+const id={'_id':req.params.quiz_id};
+console.log(id)
+    try{
+        const result=await quizes.findOneAndDelete(id);
+        console.log(result)
+        res.status(201).json();
+    
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json();
+    }
+ });
 module.exports = router;

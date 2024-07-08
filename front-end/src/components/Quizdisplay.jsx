@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Quizdisplay = () => {
@@ -9,6 +10,8 @@ const Quizdisplay = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
+
+    const [timeLeft, setTimeLeft] = useState(30); // Set timer duration here
 
     if (!quiz) {
         return (
@@ -24,10 +27,25 @@ const Quizdisplay = () => {
 
     const currentQuestion = quiz.questions[currentQuestionIndex];
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft((prevTimeLeft) => {
+                if (prevTimeLeft <= 1) {
+                    clearInterval(timer);
+                    handleNext();
+                    return 30;
+                }
+                return prevTimeLeft - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [currentQuestionIndex]);
+
     const handleAnswer = (option) => {
         const newAnswers = { ...answers, [currentQuestionIndex]: option };
         setAnswers(newAnswers);
-        
+
         if (currentQuestion.answer === option) {
             setScore((prevScore) => prevScore + 1);
         }
@@ -49,26 +67,23 @@ const Quizdisplay = () => {
 
     const saveResult = async () => {
         const resultData = {
-            username:"",
+            username: "",
             quizid: quiz._id,
-            quizTitle:quiz.quizTitle,
-            marksObtained: score ,
+            quizTitle: quiz.quizTitle,
+            marksObtained: score,
             result: JSON.stringify({
                 totalQuestions: quiz.questions.length,
                 correctAnswers: score,
                 incorrectAnswers: quiz.questions.length - score,
-                
                 totalMarks: quiz.questions.length
             }),
             qna: quiz.questions.map((question, index) => ({
-
                 question: question.question,
                 options: question.options,
                 correctAnswer: question.answer,
                 selectedOption: answers[index] || ""
             }))
         };
-
         try {
             const response = await fetch('http://localhost:5000/api/save-result', {
                 method: 'POST',
@@ -79,7 +94,9 @@ const Quizdisplay = () => {
             });
 
             if (response.ok) {
-                navigate('/result', { state: { totalQuestions: quiz.questions.length, score } });
+                const qna=resultData.qna
+                console.log(qna)
+                navigate('/result', { state: { totalQuestions: quiz.questions.length, score, qna } });
             } else {
                 console.error('Failed to save result');
             }
@@ -93,22 +110,19 @@ const Quizdisplay = () => {
             <div className="p-4 border-2 bg-gray-100 rounded-lg dark:border-gray-700 mt-[80px]">
                 <div className="text-center mb-4">
                     <h2 className="text-2xl font-bold">{quiz.quizTitle}</h2>
+                    <div className="text-xl">Time left: {timeLeft}s</div>
                 </div>
                 <div className="quiz-step">
                     <p>{`Question ${currentQuestionIndex + 1}: ${currentQuestion.question}`}</p>
                     <div className="grid grid-cols-2 gap-4 mt-4">
                         {currentQuestion.options.map((option, i) => (
-                            <label key={i} className="block bg-gray-200 p-4 rounded cursor-pointer">
-                                <input
-                                    type="radio"
-                                    name={`question${currentQuestionIndex}`}
-                                    value={option}
-                                    checked={answers[currentQuestionIndex] === option}
-                                    onChange={() => handleAnswer(option)}
-                                    className="mr-2"
-                                />
+                            <button
+                                key={i}
+                                className={`block p-4 rounded cursor-pointer ${answers[currentQuestionIndex] === option ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                                onClick={() => handleAnswer(option)}
+                            >
                                 {option}
-                            </label>
+                            </button>
                         ))}
                     </div>
                 </div>

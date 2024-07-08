@@ -29,7 +29,7 @@ const Register = () => {
     const data = await response.json();
 
     if (data.status === 'success') {
-        navigate('/home');
+        navigate('/');
     } else {
       alert(data.message);
     }
