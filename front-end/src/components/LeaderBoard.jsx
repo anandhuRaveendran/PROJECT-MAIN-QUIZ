@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-
 const LeaderBoard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
 
@@ -11,6 +10,16 @@ const LeaderBoard = () => {
         const data = await response.json();
         if (response.ok) {
           setLeaderboardData(data);
+          // const temp=_.groupBy(data,'username')
+          // console.log(temp)
+          // console.log(Object.values(data).map((users,index)=>{
+
+          //   const username=users.username;
+          //   if(username==users.username){
+          //     data[username].totalScore+=users.marksObtained;
+          //   }
+          //   console.log(data)
+          // }))
         } else {
           console.error('Failed to fetch leaderboard data');
         }
@@ -50,7 +59,7 @@ const LeaderBoard = () => {
               {leaderboardData.map((user, index) => (
                 <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                    <img className="w-10 h-10 rounded-full" src="./profile.svg" alt="Profile image"/>
+                    <img className="w-10 h-10 rounded-full" src="src/assets/images/profile.svg" alt="Profile image"/>
                     <div className="ps-3">
                       <div className="text-base font-semibold">{user.username}</div>
                     </div>

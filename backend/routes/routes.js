@@ -108,6 +108,12 @@ router.get("/myquizes", async (req, res) => {
     res.json(user_quizez);
 });
 
+router.get("/quizdetails/:id", async (req, res) => {
+    const quizid=req.params.id;
+    console.log(quizid)
+    const user_quizez = await results.find({ quizid: quizid });
+    res.json(user_quizez);
+});
 router.get("/results", async (req, res) => {
     const quiz_history = await results.find({ username: useremail });
     res.json(quiz_history);

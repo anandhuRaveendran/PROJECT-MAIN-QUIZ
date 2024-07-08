@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 let aboutemail = ''
 const Profile = () => {
-const navigate=useNavigate();
+    const navigate = useNavigate();
     const [history, setHistory] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
 
@@ -27,6 +27,7 @@ const navigate=useNavigate();
                 if (quizdata) { aboutemail = quizdata[0].creator }
 
                 setQuizzes(quizdata);
+                console.log(quizdata)
             } catch (error) {
                 console.log('error', error);
             }
@@ -52,14 +53,24 @@ const navigate=useNavigate();
 
         catch (error) {
             console.log(error)
-        }finally{
+        } finally {
             navigate('/profile')
 
         }
-        
+
     }
-    const handleSelect=async (value)=>{
-console.log(value)
+    const handleQuizDetails =async (id)=>{
+try{
+    const response = await fetch(`http://localhost:5000/quizdetails/${id}`, {
+    });
+    const data = await response.json()
+    navigate('/viewquiz',{ state: { data } })
+}catch(error){
+    console.log(error)
+}
+    }
+    const handleSelect = async (value) => {
+        console.log(value)
     }
     return (
         <>
@@ -136,6 +147,8 @@ console.log(value)
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">Quiz Name</th>
+                                    <th scope="col" className="px-6 py-3">Join ID</th>
+
                                     <th scope="col" className="px-6 py-3">Status</th>
                                     <th scope="col" className="px-6 py-3">View</th>
                                     <th scope="col" className="px-6 py-3">Delete</th>
@@ -150,12 +163,16 @@ console.log(value)
                                                 <div className="text-base font-semibold">{quiz.quizTitle}</div>
                                             </div>
                                         </th>
+
+                                        <td className="px-6 py-4">
+                                        <div className="text-base font-semibold">{quiz.joinid>0&&quiz.joinid}</div>
+                                        </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center"><div className={`h-2.5 w-2.5 rounded-full ${quiz.active === true ? 'bg-green-500' : 'bg-red-500'} me-2`}></div>
-                                                <select id="countries"value={quiz.active==true?'Active':'Closed'} onChange={() => handleSelect()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                                <select id="countries" value={quiz.active == true ? 'Active' : 'Closed'} onChange={() => handleSelect()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                              focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                      <option selected value={quiz.active==true?'Active':'Closed'}>{quiz.active==true?'Active':'Closed'}</option>
-                                                      <option value={quiz.active==true?'false':'true'}>{quiz.active==true?'Closed':'Active'}</option>
+                                                    <option selected value={quiz.active == true ? 'Active' : 'Closed'}>{quiz.active == true ? 'Active' : 'Closed'}</option>
+                                                    <option value={quiz.active == true ? 'false' : 'true'}>{quiz.active == true ? 'Closed' : 'Active'}</option>
                                                     {/* <option value="false">Close</option> */}
 
                                                 </select>
@@ -164,7 +181,7 @@ console.log(value)
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <a href="/viewquiz" type="button" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                            <a onClick={() => handleQuizDetails(quiz._id)}  type="button" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                         </td>
                                         <td className="px-6 py-4">
                                             <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2

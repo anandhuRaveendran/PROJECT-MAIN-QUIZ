@@ -53,7 +53,7 @@ const NavBar = () => {
         aria-label="Sidebar">
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <ul className="space-y-2 font-medium mt-[100px]">
-                <li>
+                <li className="shadow-md rounded-2xl">
                     <a href="/home"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
 
@@ -63,7 +63,7 @@ const NavBar = () => {
                         <span className="ms-3">Dashboard</span>
                     </a>
                 </li>
-                <li>
+                <li className="shadow-md rounded-2xl">
                     <a href="/profile"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
                         <img src="src/assets/images/profile.svg"
@@ -73,7 +73,7 @@ const NavBar = () => {
                         <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
                     </a>
                 </li>
-                <li>
+                <li className="shadow-md rounded-2xl">
                     <a href="/createquiz"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
                         <img src="src/assets/images/plus.svg"
@@ -84,7 +84,7 @@ const NavBar = () => {
                         
                     </a>
                 </li>
-                <li>
+                <li className="shadow-md rounded-2xl">
                     <a href="/joinquiz"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
                         <img src="src/assets/images/multiple-choice-quiz.svg"
@@ -95,7 +95,7 @@ const NavBar = () => {
                     </a>
                 </li>
 
-                <li>
+                <li className="shadow-md rounded-2xl">
                     <a href="/leaderboard"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
                         <img src="src/assets/images/leaderboard.svg"
@@ -106,7 +106,7 @@ const NavBar = () => {
                     </a>
                 </li>
 
-                <li>
+                <li className="shadow-md rounded-2xl">
                     <a href="/"
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
                         {/* <!-- <img src="src/assets/images/leaderboard.svg"

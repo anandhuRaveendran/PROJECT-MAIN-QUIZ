@@ -1,5 +1,12 @@
-
+/* eslint-disable react-hooks/rules-of-hooks */
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 const QuizDetails = () => {
+    const location = useLocation();
+
+    const { data } = location.state || {};
+console.log(data)
   return (
 <>
 <div className="p-4 sm:ml-64">

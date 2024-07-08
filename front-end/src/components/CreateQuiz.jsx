@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from "uuid";
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateQuiz = () => {
     const unique_id = uuid();
