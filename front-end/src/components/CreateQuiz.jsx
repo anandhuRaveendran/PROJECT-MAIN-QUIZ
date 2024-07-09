@@ -64,11 +64,12 @@ const CreateQuiz = () => {
         });
     
         const data = await response.json();
-    
-        if (data.status === 'success') {
-          navigate('/viewquiz');
+        console.log(data.creator!=null)
+        if (data.creator!=null) {
+          alert('Successfully Created new Quiz')
+          navigate('/profile');
         } else {
-          alert(data.message);
+          alert('Something Went Wrong...');
         }
       };
     return (

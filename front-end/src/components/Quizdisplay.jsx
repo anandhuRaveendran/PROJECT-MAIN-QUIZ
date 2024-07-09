@@ -166,10 +166,10 @@ const Quizdisplay = () => {
             <div className="flex flex-col sm:flex-row sm:w-[80rem] sm:h-[40rem] sm:rounded-3xl h-full w-full sm:shadow-lg bg-white">
                 <div className="flex sm:basis-1/2 flex-col items-center justify-center bg-gradient-to-b to-[#2e2be9] from-[#7857ff] sm:rounded-3xl rounded-b-3xl py-7 px-10">
                     <h2 className="text-[#ebf1ff] font-hankengrotesk text-xl sm:text-lg font-bold">{quiz.quizTitle}</h2>
-                    <div className="flex flex-col items-center justify-center text h-44 rounded-full bg-gradient-to-b from-[#2421ca]/100 to-[#4e21ca]/0 my-6">
+                    <div className="flex flex-col items-center justify-center text h-44 rounded-3xl bg-gradient-to-b from-[#2421ca]/100 to-[#4e21ca]/0 my-6">
                         <h1 className=" font-hankengrotesk text-3xl sm:text-xl text-green-500 mb-2 font-extrabold">Question : {currentQuestionIndex + 1}</h1>
 
-                        <h1 className="text-white font-hankengrotesk  sm:text-base sm:text-3xl font-extrabold mt-2">{` ${currentQuestion.question}`}</h1>
+                        <h1 className="text-white font-hankengrotesk   sm:text-3xl font-extrabold mt-2">{` ${currentQuestion.question}`}</h1>
                         {/* <p className="text-center text-[#ebf1ff] text-lg sm:text-base font-hankengrotesk">You scored higher than 65% of the people who have taken these tests.</p> */}
 
                     </div>

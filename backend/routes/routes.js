@@ -95,6 +95,20 @@ router.post("/api/addQuiz", async (req, res) => {
         res.status(500).json();
     }
 });
+router.put("/updateStatus", async (req, res) => {
+    try {
+        // req.body.creator=email;
+const creator={'_id':req.body._id}
+        const data = {'active':req.body.active};
+console.log(creator)
+const result=await quizes.findOneAndUpdate(creator,data);
+console.log(result)
+res.status(201)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json();
+    }
+});
 // router.get("/api/login", async (req, res) => {
 //     const name=req.body.username;
 //     const pass=req.body.password;

@@ -59,18 +59,63 @@ const Profile = () => {
         }
 
     }
-    const handleQuizDetails =async (id)=>{
-try{
-    const response = await fetch(`http://localhost:5000/quizdetails/${id}`, {
-    });
-    const data = await response.json()
-    navigate('/viewquiz',{ state: { data } })
-}catch(error){
-    console.log(error)
-}
+    const handleQuizDetails = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/quizdetails/${id}`, {
+            });
+            const data = await response.json()
+            navigate('/viewquiz', { state: { data } })
+        } catch (error) {
+            console.log(error)
+        }
     }
-    const handleSelect = async (value) => {
-        console.log(value)
+    const handleSelect = async (id) => {
+        const status = document.getElementById('status').value
+        if (status == 'Closed') {
+            const sts = false
+            try {
+                // eslint-disable-next-line no-unused-vars
+                const response = await fetch(`http://localhost:5000/updateStatus`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ active: sts }),
+                });
+                const data = await response.json()
+                console.log(data)
+
+
+
+            }
+
+
+            catch (error) {
+                console.log(error)
+            }
+
+        }
+        try {
+            // eslint-disable-next-line no-unused-vars
+            const response = await fetch(`http://localhost:5000/updateStatus`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ active: status }),
+            });
+            const data = await response.json()
+            console.log(data)
+
+
+        }
+
+
+        catch (error) {
+            console.log(error)
+        }
+
+        console.log(id)
     }
     return (
         <>
@@ -165,11 +210,11 @@ try{
                                         </th>
 
                                         <td className="px-6 py-4">
-                                        <div className="text-base font-semibold">{quiz.joinid>0&&quiz.joinid}</div>
+                                            <div className="text-base font-semibold">{quiz.joinid == 0 ? '' : quiz.joinid}</div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center"><div className={`h-2.5 w-2.5 rounded-full ${quiz.active === true ? 'bg-green-500' : 'bg-red-500'} me-2`}></div>
-                                                <select id="countries" value={quiz.active == true ? 'Active' : 'Closed'} onChange={() => handleSelect()} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                                <select id="status" value={quiz.active == true ? 'Active' : 'Closed'} onChange={() => handleSelect(quiz)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                              focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                     <option selected value={quiz.active == true ? 'Active' : 'Closed'}>{quiz.active == true ? 'Active' : 'Closed'}</option>
                                                     <option value={quiz.active == true ? 'false' : 'true'}>{quiz.active == true ? 'Closed' : 'Active'}</option>
@@ -181,7 +226,7 @@ try{
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <a onClick={() => handleQuizDetails(quiz._id)}  type="button" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                                            <a onClick={() => handleQuizDetails(quiz._id)} type="button" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                         </td>
                                         <td className="px-6 py-4">
                                             <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
