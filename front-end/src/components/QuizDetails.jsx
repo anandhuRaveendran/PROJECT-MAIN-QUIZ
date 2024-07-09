@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 const QuizDetails = () => {
     const location = useLocation();
 
-    const { data } = location.state || {};
-console.log(data)
+    const {quizdata}  = location.state || {};
+console.log(quizdata)
   return (
-<>
+<>  
 <div className="p-4 sm:ml-64">
 
 
@@ -22,11 +21,11 @@ console.log(data)
             <div>
                 <div
                     className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    {/* <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
                             strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
+                    </svg> */}
                 </div>
 
                 <input type="text" id="table-search-users"
@@ -51,102 +50,34 @@ console.log(data)
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                {
+                    quizdata.map((user)=>{
+                        <tr key={user._id}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    
+                        <th scope="row"
+                            className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            <img className="w-10 h-10 rounded-full" src="./logo.svg" alt="Jese image"/>
+                            <div className="ps-3">
+                                <div className="text-base font-semibold">{user.username}</div>
+                            </div>
+                        </th>
+                        <td className="px-6 py-4">
+                            16
+                        </td>
+                        <td className="px-6 py-4">
+                            <div className="flex items-center">
+                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> passed
+                            </div>
+                        </td>
+    
+                    </tr>
 
-                    <th scope="row"
-                        className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                        <img className="w-10 h-10 rounded-full" src="./logo.svg" alt="Jese image"/>
-                        <div className="ps-3">
-                            <div className="text-base font-semibold">Anandu</div>
-                        </div>
-                    </th>
-                    <td className="px-6 py-4">
-                        16
-                    </td>
-                    <td className="px-6 py-4">
-                        <div className="flex items-center">
-                            <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> passed
-                        </div>
-                    </td>
+                    })
 
-                </tr>
-                <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                }
 
-                    <th scope="row"
-                        className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img className="w-10 h-10 rounded-full" src="./logo.svg" alt="Jese image"/>
-                        <div className="ps-3">
-                            <div className="text-base font-semibold">Rahul</div>
-                        </div>
-                    </th>
-                    <td className="px-6 py-4">
-                        25
-                    </td>
-                    <td className="px-6 py-4">
-                        <div className="flex items-center">
-                            <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> passed
-                        </div>
-                    </td>
 
-                </tr>
-                <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
-                    <th scope="row"
-                        className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img className="w-10 h-10 rounded-full" src="./logo.svg" alt="Jese image"/>
-                        <div className="ps-3">
-                            <div className="text-base font-semibold">Manu</div>
-                        </div>
-                    </th>
-                    <td className="px-6 py-4">
-                        39 </td>
-                    <td className="px-6 py-4">
-                        <div className="flex items-center">
-                            <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> passed
-                        </div>
-                    </td>
-
-                </tr>
-                <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
-                    <th scope="row"
-                        className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img className="w-10 h-10 rounded-full" src="./logo.svg" alt="Jese image"/>
-                        <div className="ps-3">
-                            <div className="text-base font-semibold">Sujin</div>
-                        </div>
-                    </th>
-                    <td className="px-6 py-4">
-                        23 </td>
-                    <td className="px-6 py-4">
-                        <div className="flex items-center">
-                            <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> passed
-                        </div>
-                    </td>
-
-                </tr>
-                <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-
-                    <th scope="row"
-                        className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img className="w-10 h-10 rounded-full" src="./logo.svg" alt="Jese image"/>
-                        <div className="ps-3">
-                            <div className="text-base font-semibold">Midhun</div>
-                        </div>
-                    </th>
-                    <td className="px-6 py-4">
-                        8 </td>
-                    <td className="px-6 py-4">
-                        <div className="flex items-center">
-                            <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> failed
-                        </div>
-                    </td>
-
-                </tr>
             </tbody>
         </table>
     </div>

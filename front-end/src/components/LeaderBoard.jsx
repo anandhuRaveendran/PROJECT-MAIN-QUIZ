@@ -34,7 +34,7 @@ const LeaderBoard = () => {
   return (
     <div className="p-4 sm:ml-64">
       <div className="p-4 border-2 bg-gray-100 rounded-lg dark:border-gray-700 mt-[80px]">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className=" overflow-x-auto shadow-md sm:rounded-lg">
           <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
             <label htmlFor="table-search" className="sr-only">Search</label>
             <div className="relative">

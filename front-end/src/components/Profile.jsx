@@ -63,38 +63,38 @@ const Profile = () => {
         try {
             const response = await fetch(`http://localhost:5000/quizdetails/${id}`, {
             });
-            const data = await response.json()
-            navigate('/viewquiz', { state: { data } })
+            const quizdata = await response.json()
+            navigate('/viewquiz', { state: { quizdata } })
         } catch (error) {
             console.log(error)
         }
     }
-    const handleSelect = async (id) => {
-        const status = document.getElementById('status').value
-        if (status == 'Closed') {
-            const sts = false
-            try {
-                // eslint-disable-next-line no-unused-vars
-                const response = await fetch(`http://localhost:5000/updateStatus`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ active: sts }),
-                });
-                const data = await response.json()
-                console.log(data)
+    const handleSelect = async (id,status) => {
+        // const status = document.getElementById('status').value
+        // if (status == 'Closed') {
+        //     const sts = false
+        //     try {
+        //         // eslint-disable-next-line no-unused-vars
+        //         const response = await fetch(`http://localhost:5000/updateStatus`, {
+        //             method: 'PUT',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify({ active: sts }),
+        //         });
+        //         const data = await response.json()
+        //         console.log(data)
 
 
 
-            }
+        //     }
 
 
-            catch (error) {
-                console.log(error)
-            }
+        //     catch (error) {
+        //         console.log(error)
+        //     }
 
-        }
+        // }
         try {
             // eslint-disable-next-line no-unused-vars
             const response = await fetch(`http://localhost:5000/updateStatus`, {
@@ -102,7 +102,7 @@ const Profile = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ active: status }),
+                body: JSON.stringify({ active: status, id}),
             });
             const data = await response.json()
             console.log(data)
@@ -214,11 +214,14 @@ const Profile = () => {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center"><div className={`h-2.5 w-2.5 rounded-full ${quiz.active === true ? 'bg-green-500' : 'bg-red-500'} me-2`}></div>
-                                                <select id="status" value={quiz.active == true ? 'Active' : 'Closed'} onChange={() => handleSelect(quiz)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                                <select id="status" value="" onChange={(e) => handleSelect(quiz._id, e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                              focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option selected value={quiz.active == true ? 'Active' : 'Closed'}>{quiz.active == true ? 'Active' : 'Closed'}</option>
-                                                    <option value={quiz.active == true ? 'false' : 'true'}>{quiz.active == true ? 'Closed' : 'Active'}</option>
-                                                    {/* <option value="false">Close</option> */}
+                                                    {/* <option selected value={quiz.active == true ? 'Active' : 'Closed'}>{quiz.active == true ? 'Active' : 'Closed'}</option>
+                                                    <option value={quiz.active == true ? 'false' : 'true'}>{quiz.active == true ? 'Closed' : 'Active'}</option> */}
+                                                    <option selected value="true" >{quiz.active == true ? 'Active' : 'Closed'} </option>
+
+                                                    <option value="false">Closed</option>
+                                                    <option value="true">Active</option>
 
                                                 </select>
 

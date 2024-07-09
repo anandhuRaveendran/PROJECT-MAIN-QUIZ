@@ -98,9 +98,9 @@ router.post("/api/addQuiz", async (req, res) => {
 router.put("/updateStatus", async (req, res) => {
     try {
         // req.body.creator=email;
-const creator={'_id':req.body._id}
+const creator={'_id':req.body.id}
         const data = {'active':req.body.active};
-console.log(creator)
+        
 const result=await quizes.findOneAndUpdate(creator,data);
 console.log(result)
 res.status(201)

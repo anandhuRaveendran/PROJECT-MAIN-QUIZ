@@ -92,12 +92,12 @@ const Quizdisplay = () => {
             username: "",
             quizid: quiz._id,
             quizTitle: quiz.quizTitle,
-            marksObtained: score,
+            marksObtained: score*10,
             result: JSON.stringify({
                 totalQuestions: quiz.questions.length,
                 correctAnswers: score,
                 incorrectAnswers: quiz.questions.length - score,
-                totalMarks: quiz.questions.length
+                totalMarks: quiz.questions.length*10
             }),
             qna: quiz.questions.map((question, index) => ({
                 question: question.question,
