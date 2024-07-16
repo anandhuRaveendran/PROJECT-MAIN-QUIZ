@@ -1,3 +1,4 @@
+import Logout from "./Logout"
 
 const NavBar = () => {
   return (
@@ -107,14 +108,7 @@ const NavBar = () => {
                 </li>
 
                 <li className="shadow-md rounded-2xl">
-                    <a href="/"
-                        className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group">
-                        {/* <!-- <img src="src/assets/images/leaderboard.svg"
-                            className="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                            aria-hidden="true" alt=""> --> */}
-
-                        <span className="flex-1 ms-3 whitespace-nowrap">Logout</span>
-                    </a>
+                   <Logout/>
                 </li>
             </ul>
         </div>

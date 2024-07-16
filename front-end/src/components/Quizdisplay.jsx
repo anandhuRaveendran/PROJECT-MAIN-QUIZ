@@ -128,38 +128,7 @@ const Quizdisplay = () => {
     };
 
     return (
-        // <div className="p-4 sm:ml-64 ">
-        //     <div className="p-4 border-2 bg-gray-100 rounded-lg dark:border-gray-700 mt-[80px] ">
-        //         <div className="text-center mb-4">
-        //             <h2 className="text-2xl font-bold">{quiz.quizTitle}</h2>
-        //             <div className="text-xl">Time left: {timeLeft}s</div>
-        //         </div>
-        //         <div className="quiz-step">
-        //             <p>{`Question ${currentQuestionIndex + 1}: ${currentQuestion.question}`}</p>
-        //             <div className="grid grid-cols-2 gap-4 mt-4">
-        //                 {currentQuestion.options.map((option, i) => (
-        //                     <button
-        //                         key={i}
-        //                         className={`block p-4 rounded cursor-pointer ${answers[currentQuestionIndex] === option ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        //                         onClick={() => handleAnswer(option)}
-        //                     >
-        //                         {option}
-        //                     </button>
-        //                 ))}
-        //             </div>
-        //         </div>
-        //         <div className="mt-4 flex justify-between">
-        //             <button
-
-        //             >
-        //                 Previous
-        //             </button>
-        //             <button
-
-        //             </button>
-        //         </div>
-        //     </div>
-        // </div>
+       
 
         <div className="flex min-h-screen sm:p-10 justify-center items-center bg-[url('./assets/images/background.jpg')] border-2 shadow-2xl ">
 
@@ -189,13 +158,7 @@ const Quizdisplay = () => {
                                     <div className={`flex-col font-hankengrotesk text-lg sm:text-base   ${answers[currentQuestionIndex] === option ? 'bg-blue-500 text-white' : `${colors[i].main} `}`} >  {option}</div>
                                 </div>
                             </div>
-                            //    <button
-                            //     key={i}
-                            //         className={`block p-4 rounded cursor-pointer ${answers[currentQuestionIndex] === option ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                            //         onClick={() => handleAnswer(option)}
-                            //     >
-                            //         {option}
-                            //     </button>
+
                         ))}
                     </div>
 <div className="flex justify-between">

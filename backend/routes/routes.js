@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const users = require('../Models/Users');
 const quizes = require('../Models/Quizes');
 const results = require("../Models/QuizResults");
+const verifyToken = require("../middleware/authMiddleware")
+
 let useremail = ''
 
 router.get("/api/get-quiz/:joinID", async (req, res) => {
@@ -24,13 +25,7 @@ router.post('/api/save-result', async (req, res) => {
         req.body.username=useremail
         const data=req.body
         data.qna=JSON.stringify(data.qna)
-        // const { username, quizId, result, qna } = req.body;
-        // const newResult = new Result({
-        //     username,
-        //     quizid: quizId,
-        //     result,
-        //     qna: JSON.stringify(qna)  // Store the qna as a JSON string
-        // });
+
        const result_details= await results.create(data)
         res.status(200).json({ message: 'Result saved successfully' });
     } catch (error) {
@@ -50,19 +45,19 @@ router.get("/joinquiz", async (req, res) => {
     const details = await quizes.findOne({ joinid: joinId }, { _id: 0 });
     res.json(details);
 });
-router.post('/api/signup', async (req, res) => {
-    const email = req.body.email;
-    useremail = email;
-    const data = req.body
-    const existingUser = await users.findOne({ email });
-    if (existingUser) {
-        return res.json({ status: 'error', message: 'Email already exists' });
-    }
+// router.post('/api/signup', async (req, res) => {
+//     const email = req.body.email;
+//     useremail = email;
+//     const data = req.body
+//     const existingUser = await users.findOne({ email });
+//     if (existingUser) {
+//         return res.json({ status: 'error', message: 'Email already exists' });
+//     }
 
-    const user = await users.create(data);
+//     const user = await users.create(data);
 
-    res.json({ status: 'success', message: 'Signup successful!' });
-});
+//     res.json({ status: 'success', message: 'Signup successful!' });
+// });
 router.get('/api/leaderboard', async (req, res) => {
     try {
       const leaderboard = await results.find().sort({ marksObtained: -1 }); // Sorting by marksObtained in descending order
@@ -71,21 +66,22 @@ router.get('/api/leaderboard', async (req, res) => {
       res.status(500).json({ message: 'Error fetching leaderboard data', error });
     }
   });
-router.post('/api/login', async (req, res) => {
-    const { email, password } = req.body;
-    useremail = email;
-    const user = await users.findOne({ email, password });
-    if (user) {
-        res.json({ status: 'success', message: 'Login successful!' });
-    } else {
-        res.json({ status: 'error', message: 'Invalid email or password' });
-    }
-});
+// router.post('/api/login', async (req, res) => {
+//     const { email, password } = req.body;
+//     useremail = email;
+//     const user = await users.findOne({ email, password });
+//     if (user) {
+//         res.json({ status: 'success', message: 'Login successful!' });
+//     } else {
+//         res.json({ status: 'error', message: 'Invalid email or password' });
+//     }
+// });
 
-router.post("/api/addQuiz", async (req, res) => {
+router.post("/addQuiz", async (req, res) => {
     try {
         // req.body.creator=email;
-        req.body.creator = useremail;
+        console.log(req.body)
+        req.body.creator = '';  
         req.body.thumbnail=null
         const data = req.body;
         const result = await quizes.create(data);
@@ -109,12 +105,7 @@ res.status(201)
         res.status(500).json();
     }
 });
-// router.get("/api/login", async (req, res) => {
-//     const name=req.body.username;
-//     const pass=req.body.password;
-//     const user_details = await users.findOne({username:name,password:pass});
-//     res.json(user_details);
-// });
+
 
 router.get("/myquizes", async (req, res) => {
 

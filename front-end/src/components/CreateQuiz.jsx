@@ -55,7 +55,7 @@ const CreateQuiz = () => {
         const creator = 0;
         const joinid=isPrivate==true?unique_id.slice(0, 8):0;
         const active=true;
-        const response = await fetch('http://localhost:5000/api/addQuiz', {
+        const response = await fetch('/api/addQuiz', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -137,7 +137,8 @@ const CreateQuiz = () => {
               <input
                 type="file"
                 accept="image/*"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 w-64 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5
+                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={handleThumbnailChange}
               />
             </div>
@@ -150,8 +151,7 @@ const CreateQuiz = () => {
               <button
                 type="button"
                 onClick={() => deleteQuestion(qIndex)}
-                className="text-red-500 hover:text-red-700"
-              >
+                className="inline-flex ml-[600px] items-center mt-2 px-5 py-2.5 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">              
                 Delete
               </button>
             </div>
@@ -170,7 +170,7 @@ const CreateQuiz = () => {
                 <input
                   type="text"
                   placeholder={`Option ${oIndex + 1}`}
-                  className="rounded-lg border-2 border-gray-300 h-8 w-full"
+                  className="rounded-lg border-2 border-gray-300 h-8 w-64"
                   value={option}
                   onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
                 />
@@ -183,7 +183,7 @@ const CreateQuiz = () => {
               <input
                 type="text"
                 placeholder="Enter Answer Here"
-                className="rounded-lg border-2 border-gray-300 h-8 w-full"
+                className="rounded-lg border-2 border-gray-300 h-8 w-64"
                 value={q.answer}
                 onChange={(e) => handleAnswerChange(qIndex, e.target.value)}
               />
@@ -204,7 +204,7 @@ const CreateQuiz = () => {
           <input
             type="text"
             placeholder="Enter quiz category"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required

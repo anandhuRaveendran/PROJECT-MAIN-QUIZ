@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const response = await fetch('http://localhost:5000/api/login', {
+    const response = await fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -21,8 +22,10 @@ const Login = () => {
     
     const data = await response.json();
     console.log(data);
-    if (data.status === 'success') {
+    if (data.message==='login success') {
         navigate('/home');
+        toast.success(`Logged in Sucessfully`);
+
       } else {
         alert(data.message);
       }

@@ -8,7 +8,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch quizzes from the backend
         const fetchQuizzes = async () => {
             try {
                 const response = await fetch('http://localhost:5000/home');
@@ -23,7 +22,6 @@ const Dashboard = () => {
         fetchQuizzes();
     }, []);
 
-    // Group quizzes by category
     const groupedQuizzes = _.groupBy(quizzes, 'category');
 console.log(groupedQuizzes)
     const handleQuizClick = (quiz) => {
