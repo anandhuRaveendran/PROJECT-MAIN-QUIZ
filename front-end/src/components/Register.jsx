@@ -27,9 +27,10 @@ const Register = () => {
     });
 
     const data = await response.json();
-
-    if (data.status === 'success') {
+    console.log(data)
+    if (data.message === 'User registered successfully') {
         navigate('/');
+        
     } else {
       alert(data.message);
     }

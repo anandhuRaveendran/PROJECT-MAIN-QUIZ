@@ -23,11 +23,12 @@ const Login = () => {
     const data = await response.json();
     console.log(data);
     if (data.message==='login success') {
-        navigate('/home');
-        toast.success(`Logged in Sucessfully`);
+      toast.success(`Logged in Sucessfully`);
+
+      return  navigate('/home');
 
       } else {
-        alert(data.message);
+        alert('Please check the Password/Email');
       }
   };
   return (

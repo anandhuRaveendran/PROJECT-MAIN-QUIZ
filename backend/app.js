@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const routes = require("./routes/routes");
 const authRoute = require("./routes/auth");
+var cookieParser = require('cookie-parser')
 
 app.use(
   cors({ 
@@ -11,6 +12,7 @@ app.use(
   })
 );
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/", routes);
@@ -20,7 +22,7 @@ const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-mongoose.connect("mongodb://localhost:27017/Quiz-Planet");
+mongoose.connect("mongodb://mongodb:27017/Quiz-Planet");
 
 const database = mongoose.connection;
 

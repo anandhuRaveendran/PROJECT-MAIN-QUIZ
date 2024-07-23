@@ -4,8 +4,6 @@ const quizes = require('../Models/Quizes');
 const results = require("../Models/QuizResults");
 const verifyToken = require("../middleware/authMiddleware")
 
-let useremail = ''
-
 router.get("/api/get-quiz/:joinID", async (req, res) => {
     const id=req.params.joinID
     console.log(id)
@@ -22,7 +20,7 @@ router.get("/home", async (req, res) => {
 
 router.post('/api/save-result', async (req, res) => {
     try {
-        req.body.username=useremail
+        req.body.username=req.email
         const data=req.body
         data.qna=JSON.stringify(data.qna)
 
@@ -107,9 +105,9 @@ res.status(201)
 });
 
 
-router.get("/myquizes", async (req, res) => {
-
-    const user_quizez = await quizes.find({ creator: useremail });
+router.get("/myquizes",verifyToken, async (req, res) => {
+console.log('myquizes',req.useremail)
+    const user_quizez = await quizes.find({ creator: req.cookies.User });
     res.json(user_quizez);
 });
 
@@ -119,8 +117,8 @@ router.get("/quizdetails/:id", async (req, res) => {
     const user_quizez = await results.find({ quizid: quizid });
     res.json(user_quizez);
 });
-router.get("/results", async (req, res) => {
-    const quiz_history = await results.find({ username: useremail });
+router.get("/results",verifyToken, async (req, res) => {
+    const quiz_history = await results.find({ username: req.cookies.User });
     res.json(quiz_history);
 });
 router.delete('/delete/:quiz_id',async(req,res)=>{
