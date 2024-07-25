@@ -1,89 +1,73 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logout from './Logout';
 
 const NavBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleSearch = () => {
+    // No action needed for search
+    // You can implement search or keep it as a placeholder
+  };
+
   return (
     <>
-      <div className="fixed w-full justify-between">
-        <nav className="bg-white border-gray-200 dark:bg-gray-900 flex flex-wrap">
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <Link to="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src="src/assets/images/logo.svg" className="h-8" alt="quizapp Logo" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QuizApp</span>
-            </Link>
-            <div className="flex md:order-2 ml-6">
+      <div className="fixed w-full top-0 z-10">
+        <nav className="bg-white border-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-between p-4">
+          <Link to="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="src/assets/images/logo.svg" className="h-8" alt="quizapp Logo" />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">QuizApp</span>
+          </Link>
+          <div className="flex items-center space-x-4 flex-1 justify-end">
+            <div className="relative flex flex-grow max-w-xs">
+              <input
+                type="text"
+                id="search-navbar"
+                className="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
               <button
-                type="button"
-                aria-controls="navbar-search"
-                aria-expanded="false"
-                className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
+                onClick={handleSearch}
+                className="absolute inset-y-0 end-0 px-4 py-2 text-white bg-blue-500 rounded-r-lg hover:bg-blue-700"
+                aria-label="Search"
               >
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-                <span className="sr-only">Search</span>
-              </button>
-              <div className="relative hidden md:block">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                  <img
-                    className="w-6 h-6 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    src="src/assets/images/search.svg"
-                  />
-                  <span className="sr-only">Search icon</span>
-                </div>
-                <input
-                  type="text"
-                  id="search-navbar"
-                  className="block w-full p-5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Search..."
-                />
-              </div>
-              <button
-                onClick={toggleSidebar}
-                type="button"
-                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="default-sidebar"
-                aria-expanded={isSidebarOpen}
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 17 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M1 1h15M1 7h15M1 13h15"
-                  />
-                </svg>
+                Search
               </button>
             </div>
+            <button
+              onClick={toggleSidebar}
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="default-sidebar"
+              aria-expanded={isSidebarOpen}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
           </div>
         </nav>
       </div>
@@ -105,7 +89,7 @@ const NavBar = () => {
                 <img
                   src="src/assets/images/dashboard.svg"
                   className="w-8 h-8 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  alt=""
+                  alt="Dashboard"
                 />
                 <span className="ms-3">Dashboard</span>
               </Link>
@@ -119,7 +103,7 @@ const NavBar = () => {
                   src="src/assets/images/profile.svg"
                   className="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                   aria-hidden="true"
-                  alt=""
+                  alt="Profile"
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
               </Link>
@@ -133,7 +117,7 @@ const NavBar = () => {
                   src="src/assets/images/plus.svg"
                   className="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                   aria-hidden="true"
-                  alt=""
+                  alt="Create Quiz"
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Create Quiz</span>
               </Link>
@@ -147,7 +131,7 @@ const NavBar = () => {
                   src="src/assets/images/multiple-choice-quiz.svg"
                   className="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                   aria-hidden="true"
-                  alt=""
+                  alt="Join Quiz"
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Join Quiz</span>
               </Link>
@@ -161,7 +145,7 @@ const NavBar = () => {
                   src="src/assets/images/leaderboard.svg"
                   className="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                   aria-hidden="true"
-                  alt=""
+                  alt="Leaderboard"
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Leaderboard</span>
               </Link>

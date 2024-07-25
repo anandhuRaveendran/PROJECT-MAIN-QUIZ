@@ -4,8 +4,6 @@ const User = require("../Models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// In-memory store for tokens
-const userTokens = {};
 
 router.post("/signup", async (req, res) => {
   try {
@@ -60,7 +58,6 @@ router.post("/login", async (req, res) => {
 router.get("/logout", (req, res) => {
   const email = req.cookies.User;
   if (email) {
-    // Remove the token from the in-memory store
     delete userTokens[email];
   }
 
@@ -70,24 +67,6 @@ router.get("/logout", (req, res) => {
   res.status(200).send("Logout successful");
 });
 
-// // Middleware to authenticate and set req.user
-// const authenticate = (req, res, next) => {
-//   const token = req.cookies.Authtoken;
-//   if (!token) {
-//     return res.status(401).json({ error: "Unauthorized" });
-//   }
-//   try {
-//     const decoded = jwt.verify(token, "your-secret-key");
-//     req.user = decoded;
-//     next();
-//   } catch (error) {
-//     return res.status(401).json({ error: "Unauthorized" });
-//   }
-// };
 
-// // Example protected route
-// router.get("/protected", authenticate, (req, res) => {
-//   res.json({ message: "You have access to this protected route", user: req.user });
-// });
 
 module.exports = router;

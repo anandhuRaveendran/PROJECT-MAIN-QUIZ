@@ -125,7 +125,7 @@ router.get("/quizdetails/:id", async (req, res) => {
 router.get("/results", verifyToken, async (req, res) => {
     try {
         console.log(req.body);
-        const quiz_history = await results.find({ username: req.useremail });
+        const quiz_history = await results.find({ useremail: req.useremail });
         res.json(quiz_history);
     } catch (error) {
         console.error('Failed to get results:', error);
