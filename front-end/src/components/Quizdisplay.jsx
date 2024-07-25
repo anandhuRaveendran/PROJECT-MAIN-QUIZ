@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 const Quizdisplay = () => {
     const location = useLocation();
@@ -11,6 +12,8 @@ const Quizdisplay = () => {
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(0);
 
+
+        
     const [timeLeft, setTimeLeft] = useState(30); // Set timer duration here
     const colors = [
         {
@@ -45,6 +48,15 @@ const Quizdisplay = () => {
     const currentQuestion = quiz.questions[currentQuestionIndex];
 
     useEffect(() => {
+            const authToken = document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("Authtoken"))
+              ?.split("=")[1];
+            console.log("documemnt.cookie vslue", authToken);
+            console.log('reached')
+            if (!authToken) {
+              navigate('/')
+            }
         const timer = setInterval(() => {
             setTimeLeft((prevTimeLeft) => {
                 if (prevTimeLeft <= 1) {
@@ -88,9 +100,19 @@ const Quizdisplay = () => {
     };
 
     const saveResult = async () => {
+        const authToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("Authtoken"))
+        ?.split("=")[1];
+        console.log("documemnt.cookie vslue", authToken);
+        const decoded = jwtDecode(authToken);
+        const user = decoded.username
+        const email=decoded.useremail
+        console.log(user,'save quiz')
         const resultData = {
-            username: "",
+            username: user,
             quizid: quiz._id,
+            useremail:email,
             quizTitle: quiz.quizTitle,
             marksObtained: score*10,
             result: JSON.stringify({
@@ -107,7 +129,9 @@ const Quizdisplay = () => {
             }))
         };
         try {
-            const response = await fetch('http://localhost:5000/api/save-result', {
+            console.log(resultData)
+            const response = await fetch('/api/save-result', {
+                
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

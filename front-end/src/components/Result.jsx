@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import {React,useState} from 'react';
+import {React,useState ,useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
     FacebookShareButton, 
@@ -14,7 +14,18 @@ import {
 const Result = () => {
   const navigate=useNavigate();
     const location = useLocation();
-    console.log(location)
+  console.log(location)
+  useEffect(() => {
+    const authToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("Authtoken"))
+      ?.split("=")[1];
+    console.log("documemnt.cookie vslue", authToken);
+
+    if (!authToken) {
+      navigate('/')
+    }
+  }, []);
     const { totalQuestions, score ,qna } = location.state || { totalQuestions: 0, score: 0 };
     const [share, setShare] = useState(false);
 console.log(qna)
@@ -64,16 +75,16 @@ console.log(qna)
    <div className='py-4 sm:py-3 '>
 
              {share == true ? <div>
-               <FacebookShareButton url={'http://localhost:3000'}>
+               <FacebookShareButton url={'/home'}>
                  <FacebookIcon size={32} round />
                </FacebookShareButton>
-               <RedditShareButton url={'http://localhost:3000'}>
+               <RedditShareButton url={'/home'}>
                  <RedditIcon size={32} round />
                </RedditShareButton>
-               <WhatsappShareButton url={'http://localhost:3000'}>
+               <WhatsappShareButton url={'/home'}>
                  <WhatsappIcon size={32} round />
                </WhatsappShareButton>
-               <LinkedinShareButton url={'http://localhost:3000'}>
+               <LinkedinShareButton url={'/home'}>
                  <LinkedinIcon size={32} round />
                </LinkedinShareButton>
              </div> : ''}

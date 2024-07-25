@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Logout from './Logout';
 
 const NavBar = () => {
@@ -14,10 +15,10 @@ const NavBar = () => {
       <div className="fixed w-full justify-between">
         <nav className="bg-white border-gray-200 dark:bg-gray-900 flex flex-wrap">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <Link to="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
               <img src="src/assets/images/logo.svg" className="h-8" alt="quizapp Logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QuizApp</span>
-            </a>
+            </Link>
             <div className="flex md:order-2 ml-6">
               <button
                 type="button"
@@ -97,8 +98,8 @@ const NavBar = () => {
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
           <ul className="space-y-2 font-medium mt-[100px]">
             <li className="shadow-md rounded-2xl">
-              <a
-                href="/home"
+              <Link
+                to="/home"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group"
               >
                 <img
@@ -107,11 +108,11 @@ const NavBar = () => {
                   alt=""
                 />
                 <span className="ms-3">Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li className="shadow-md rounded-2xl">
-              <a
-                href="/profile"
+              <Link
+                to="/profile"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group"
               >
                 <img
@@ -121,11 +122,11 @@ const NavBar = () => {
                   alt=""
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
-              </a>
+              </Link>
             </li>
             <li className="shadow-md rounded-2xl">
-              <a
-                href="/createquiz"
+              <Link
+                to="/createquiz"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group"
               >
                 <img
@@ -135,11 +136,11 @@ const NavBar = () => {
                   alt=""
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Create Quiz</span>
-              </a>
+              </Link>
             </li>
             <li className="shadow-md rounded-2xl">
-              <a
-                href="/joinquiz"
+              <Link
+                to="/joinquiz"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group"
               >
                 <img
@@ -149,11 +150,11 @@ const NavBar = () => {
                   alt=""
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Join Quiz</span>
-              </a>
+              </Link>
             </li>
             <li className="shadow-md rounded-2xl">
-              <a
-                href="/leaderboard"
+              <Link
+                to="/leaderboard"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group"
               >
                 <img
@@ -163,9 +164,9 @@ const NavBar = () => {
                   alt=""
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Leaderboard</span>
-              </a>
+              </Link>
             </li>
-            <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group shadow-md rounded-2xl">
+            <li className="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 group shadow-md rounded-2xl">
               <Logout />
             </li>
           </ul>

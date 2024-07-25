@@ -22,7 +22,8 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password} = req.body;
+  
     console.log(email, password);
     const user = await User.findOne({ email });
     console.log(user, "user");
@@ -34,21 +35,21 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Authentication failed- password doesn't match" });
     }
 
-    const token = jwt.sign({ userId: user._id, useremail: user.email }, "your-secret-key", {
+    const token = jwt.sign({ userId: user._id, useremail: user.email, username:user.username }, "your-secret-key", {
       expiresIn: "1h",
     });
 
-    // Store the token in the in-memory store
-    userTokens[user.email] = token;
+
 
     res.cookie("Authtoken", token);
     res.cookie("User", user.email);
-    
+    res.cookie("username",user.username)
     res.json({
       status: true,
       message: "login success",
       token,
       useremail: user.email,
+      uername:user.username
     });
   } catch (error) {
     console.log(error);

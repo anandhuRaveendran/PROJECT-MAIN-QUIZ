@@ -9,9 +9,20 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+            const authToken = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("Authtoken"))
+            ?.split("=")[1];
+          console.log("documemnt.cookie vslue", authToken);
+            console.log('reached')
+            console.log(authToken)
+            if (!authToken) {
+           navigate('/')
+            }
+  
         const fetchQuizzes = async () => {
             try {
-                const response = await fetch('http://localhost:5000/home');
+                const response = await fetch('/api/home');
                 const data = await response.json();
                 setQuizzes(data);
                 console.log(data)

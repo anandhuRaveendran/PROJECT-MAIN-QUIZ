@@ -1,15 +1,25 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Joinquiz = () => {
   const [joinID, setJoinID] = useState('');
   const navigate = useNavigate();
+  useEffect(() => {
+    const authToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("Authtoken"))
+      ?.split("=")[1];
+    console.log("documemnt.cookie vslue", authToken);
 
+    if (!authToken) {
+      navigate('/')
+    }
+  }, []);
   const handleJoin = async () => {
     if (joinID.length === 8) {
       try {
-        const response = await fetch(`http://localhost:5000/api/get-quiz/${joinID}`);
+        const response = await fetch(`/api/get-quiz/${joinID}`);
         const data = await response.json();
         console.log(data)
         if (response.ok) {

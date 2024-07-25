@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const Logout = () => {
-
+    localStorage.clear()
     const navigate = useNavigate()
     const logout = async () => {
         try {

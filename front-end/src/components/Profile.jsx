@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";
 
 // eslint-disable-next-line no-unused-vars
 let aboutemail = '';
@@ -8,83 +9,94 @@ const Profile = () => {
     const navigate = useNavigate();
     const [history, setHistory] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
+    const [profileName, setName] = useState('');
+    const [profileMail, setEMail] = useState('');
 
     useEffect(() => {
+        const authToken = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("Authtoken"))
+            ?.split("=")[1];
+        console.log("document.cookie value", authToken);
+        if (!authToken) {
+            navigate('/');
+        }
+        const decoded = jwtDecode(authToken);
+
+        const fullName = decoded.username;
+        const email=decoded.useremail
+        setName(fullName);
+        setEMail(email)
+
         const fetchHistory = async () => {
             try {
                 const res = await fetch('/api/results');
                 const historydata = await res.json();
-                if (historydata) { aboutemail = historydata[0].username }
                 setHistory(historydata);
             } catch (error) {
                 console.log('error', error);
             }
         };
+
         const fetchQuiz = async () => {
             try {
                 const res = await fetch('/api/myquizes');
                 const quizdata = await res.json();
                 if (quizdata) { aboutemail = quizdata[0].creator }
-
                 setQuizzes(quizdata);
-                console.log(quizdata)
+                console.log(quizdata);
             } catch (error) {
                 console.log('error', error);
             }
         };
+
         fetchHistory();
-        fetchQuiz()
-    },
-        []);
+        fetchQuiz();
+    }, [navigate]);
 
     const handleDelete = async (quiz) => {
-        console.log(quiz._id)
         try {
-            // eslint-disable-next-line no-unused-vars
             const response = await fetch(`/api/delete/${quiz._id}`, {
                 method: 'DELETE',
             });
-            const data = await response.json()
-            console.log(data)
-            navigate('/profile')
-
+            const data = await response.json();
+            console.log(data);
+        
+            setQuizzes(quizzes.filter(q => q._id !== quiz._id));
+ 
+            
         } catch (error) {
-            console.log(error)
-        } finally {
-            navigate('/profile')
-
+            console.log(error);
         }
-
     };
 
     const handleQuizDetails = async (id) => {
         try {
             const response = await fetch(`/api/quizdetails/${id}`, {});
-            const quizdata = await response.json()
-            navigate('/viewquiz', { state: { quizdata } })
+            const quizdata = await response.json();
+            navigate('/viewquiz', { state: { quizdata } });
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
     const handleSelect = async (id, status) => {
         try {
-            // eslint-disable-next-line no-unused-vars
             const response = await fetch(`/api/updateStatus`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ active: status, id }),
+                body: JSON.stringify({ active: status === 'true', id }),
             });
-            const data = await response.json()
-            console.log(data)
+            const data = await response.json();
+            console.log(data);
 
+            // Update the quiz status locally
+            setQuizzes(quizzes.map(quiz => quiz._id === id ? { ...quiz, active: status === 'true' } : quiz));
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-
-        console.log(id)
     };
 
     return (
@@ -94,9 +106,9 @@ const Profile = () => {
                     <img src="src/assets/images/profilepic.png" className="w-32 h-32 md:w-36 md:h-36 object-center object-cover rounded-full transition-all duration-500" />
                     <div className="w-fit transition-all duration-500 flex-wrap text-center md:text-left">
                         <h1 className="text-gray-600 dark:text-gray-200 font-bold">
-                            Anandu Raveendran
+                            {profileName}
                         </h1>
-                        <p className="text-gray-400">{aboutemail}</p>
+                        <p className="text-gray-400">{profileMail}</p>
                     </div>
                 </div>
 
@@ -182,9 +194,9 @@ const Profile = () => {
                                         <td className="px-6 py-4">
                                             <div className="flex items-center">
                                                 <div className={`h-2.5 w-2.5 rounded-full ${quiz.active ? 'bg-green-500' : 'bg-red-500'} mr-2`}></div>
-                                                <select id="status" value="" onChange={(e) => handleSelect(quiz._id, e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option value="true" selected={quiz.active}>Active</option>
-                                                    <option value="false" selected={!quiz.active}>Closed</option>
+                                                <select id="status" value={quiz.active} onChange={(e) => handleSelect(quiz._id, e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <option value="true" selected={quiz.active === true}>Active</option>
+                                                    <option value="false" selected={quiz.active === false}>Closed</option>
                                                 </select>
                                             </div>
                                         </td>

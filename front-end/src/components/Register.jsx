@@ -1,8 +1,19 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  useEffect(() => {
+    const authToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("Authtoken"))
+      ?.split("=")[1];
+    console.log("documemnt.cookie vslue", authToken);
+
+    if (authToken) {
+      navigate('/profile')
+    }
+  }, []);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');

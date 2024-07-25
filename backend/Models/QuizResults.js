@@ -3,6 +3,7 @@ const { model} =require('mongoose');
 
 const resultSchema = new Schema({
    username: { type: String, required: true },
+   useremail:{type:String,required:true},
    quizTitle:{type:String,required:true},
    marksObtained:{type:String,required:true},
    quizid: { type: String, required: true },

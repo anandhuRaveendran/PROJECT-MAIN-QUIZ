@@ -49,11 +49,10 @@ console.log(quizdata)
 
                 </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
                 {
-                    quizdata.map((user)=>{
-                        <tr key={user._id}
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    quizdata.map((user,index)=>{
+                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
     
                         <th scope="row"
                             className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
@@ -63,11 +62,11 @@ console.log(quizdata)
                             </div>
                         </th>
                         <td className="px-6 py-4">
-                            16
+                            {user.marksObtained}
                         </td>
                         <td className="px-6 py-4">
                             <div className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> passed
+                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>passed
                             </div>
                         </td>
     
@@ -78,7 +77,25 @@ console.log(quizdata)
                 }
 
 
-            </tbody>
+            </tbody> */}
+                                                     <tbody>
+                                {quizdata.map((item, index) => (
+                                    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                            <img className="w-10 h-10 rounded-full" src="src/assets/images/logo.svg" alt="Quiz Logo" />
+                                            <div className="pl-3">
+                                                <div className="text-base font-semibold">{item.username}</div>
+                                            </div>
+                                        </th>
+                                        <td className="px-6 py-4">{item.marksObtained * 10}</td>
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center">
+                                                <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >= 3 ? 'bg-green-500' : 'bg-red-500'} mr-2`}></div> {item.marksObtained >= 3 ? 'PASSED' : 'FAILED'}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
         </table>
     </div>
 
