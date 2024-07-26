@@ -1,6 +1,9 @@
-##Quiz App
+###Quiz App
+
 it's a platform for users can create,attend various quizs and personal profile for check statistics 
+
 #Components
+
 1.Dashboard
 2.Profile
 3.Leaderboard
@@ -9,6 +12,7 @@ it's a platform for users can create,attend various quizs and personal profile f
 6.Quiz Details
 
 ###Demo Video
+
 [https://drive.google.com/file/d/1tZFG4McnWin2ZnIEeAe6Ms5YpjUQJw-E/view?usp=drivesdk]
 
 ##Getting Started 
