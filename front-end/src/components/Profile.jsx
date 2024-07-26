@@ -67,7 +67,6 @@ const Profile = () => {
                 const res = await fetch('/api/myquizes');
                 const quizdata = await res.json();
                 setQuizzes(quizdata);
-                console.log(quizdata);
             } catch (error) {
                 console.log('error', error);
             }
