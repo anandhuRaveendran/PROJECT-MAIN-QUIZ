@@ -12,7 +12,6 @@ const Register = () => {
       .split("; ")
       .find((row) => row.startsWith("Authtoken"))
       ?.split("=")[1];
-    console.log("document.cookie value", authToken);
 
     if (authToken) {
       navigate('/profile');
@@ -63,7 +62,6 @@ const Register = () => {
     });
 
     const data = await response.json();
-    console.log(data);
 
     if (data.message === 'User registered successfully') {
       toast.success("Registration successful! Redirecting...");

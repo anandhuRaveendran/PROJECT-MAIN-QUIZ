@@ -24,9 +24,6 @@ const CreateQuiz = () => {
           .split("; ")
           .find((row) => row.startsWith("Authtoken"))
           ?.split("=")[1];
-        console.log("documemnt.cookie vslue", authToken);
-        console.log('reached')
-        console.log(authToken)
 
         if (!authToken) {
           navigate('/')
@@ -82,7 +79,6 @@ const CreateQuiz = () => {
         });
     
         const data = await response.json();
-        console.log(data.creator!=null)
         if (data.creator!=null) {
           alert('Successfully Created new Quiz')
           navigate('/profile');

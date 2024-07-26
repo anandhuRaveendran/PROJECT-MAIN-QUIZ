@@ -10,7 +10,6 @@ const Joinquiz = () => {
       .split("; ")
       .find((row) => row.startsWith("Authtoken"))
       ?.split("=")[1];
-    console.log("documemnt.cookie vslue", authToken);
 
     if (!authToken) {
       navigate('/')
@@ -21,7 +20,6 @@ const Joinquiz = () => {
       try {
         const response = await fetch(`/api/get-quiz/${joinID}`);
         const data = await response.json();
-        console.log(data)
         if (response.ok) {
             
           navigate('/quizdisplay', { state: { quiz: data } });

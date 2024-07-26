@@ -14,21 +14,18 @@ import {
 const Result = () => {
   const navigate=useNavigate();
     const location = useLocation();
-  console.log(location)
   useEffect(() => {
     const authToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("Authtoken"))
       ?.split("=")[1];
-    console.log("documemnt.cookie vslue", authToken);
 
     if (!authToken) {
       navigate('/')
     }
-  }, []);
+  }, [navigate]);
     const { totalQuestions, score ,qna } = location.state || { totalQuestions: 0, score: 0 };
     const [share, setShare] = useState(false);
-console.log(qna)
     const handleShare = () => {
         setShare(true)
       }

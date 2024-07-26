@@ -14,10 +14,8 @@ const Login = () => {
       .split('; ')
       .find((row) => row.startsWith('Authtoken'))
       ?.split('=')[1];
-    console.log('document.cookie value', authToken);
 
     if (authToken) {
-      console.log('Redirecting to /profile');
       navigate('/profile');
     }
   }, [navigate]);
@@ -35,7 +33,6 @@ const Login = () => {
       });
 
       const data = await response.json();
-      console.log('Login response data:', data);
 
       if (response.ok && data.token) {  // Check if the response is OK and token is present
         const { token, useremail, username } = data;
@@ -112,11 +109,9 @@ const getUserToken = () => {
     .split('; ')
     .find((row) => row.startsWith('Authtoken'))
     ?.split('=')[1];
-  console.log('document.cookie value', authToken);
 
   if (authToken) {
     const decoded = jwtDecode(authToken);
-    console.log('decoded', decoded);
     return decoded.useremail;
   }
 

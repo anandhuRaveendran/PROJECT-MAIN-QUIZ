@@ -5,7 +5,6 @@ const QuizDetails = () => {
     const location = useLocation();
 
     const {quizdata}  = location.state || {};
-console.log(quizdata)
   return (
 <>
   <div className="p-4 sm:ml-64 bg-gray-100 dark:bg-gray-900">

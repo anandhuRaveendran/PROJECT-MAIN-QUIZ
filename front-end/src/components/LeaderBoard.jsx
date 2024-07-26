@@ -12,7 +12,6 @@ const LeaderBoard = () => {
       .split("; ")
       .find((row) => row.startsWith("Authtoken"))
       ?.split("=")[1];
-    console.log("document.cookie value", authToken);
 
     if (!authToken) {
       navigate('/');

@@ -7,9 +7,7 @@ const verifyToken = require("../middleware/authMiddleware");
 router.get("/get-quiz/:joinID", async (req, res) => {
     try {
         const id = req.params.joinID;
-        console.log(id);
         const quizdata = await quizes.findOne({ joinid: id });
-        console.log(quizdata);
         res.json(quizdata);
     } catch (error) {
         console.error('Failed to get quiz:', error);
@@ -29,7 +27,6 @@ router.get("/home", async (req, res) => {
 
 router.post('/save-result', async (req, res) => {
     try {
-        console.log(req.body, 'results');
         const data = req.body;
         data.qna = JSON.stringify(data.qna);
 
@@ -91,7 +88,6 @@ router.put("/updateStatus", async (req, res) => {
         const data = { 'active': req.body.active };
 
         const result = await quizes.findOneAndUpdate(creator, data);
-        console.log(result);
         res.status(201).json(result);
     } catch (error) {
         console.error('Failed to update status:', error);
@@ -101,7 +97,6 @@ router.put("/updateStatus", async (req, res) => {
 
 router.get("/myquizes", verifyToken, async (req, res) => {
     try {
-        console.log('myquizes', req.useremail);
         const user_quizez = await quizes.find({ creator: req.useremail });
         res.json(user_quizez);
     } catch (error) {
@@ -113,10 +108,8 @@ router.get("/myquizes", verifyToken, async (req, res) => {
 router.get("/quizdetails/:id", async (req, res) => {
     try {
         const quizid = req.params.id;
-        console.log(quizid);
         const user_quizez = await results.find({ quizid: quizid });
         res.json(user_quizez);
-        console.log(res);
 
     } catch (error) {
         console.error('Failed to get quiz details:', error);
@@ -126,7 +119,6 @@ router.get("/quizdetails/:id", async (req, res) => {
 
 router.get("/results", verifyToken, async (req, res) => {
     try {
-        console.log(req.body);
         const quiz_history = await results.find({ useremail: req.useremail });
         res.json(quiz_history);
     } catch (error) {
@@ -137,11 +129,8 @@ router.get("/results", verifyToken, async (req, res) => {
 
 router.delete('/delete/:quiz_id', async (req, res) => {
     try {
-        console.log(req.params.quiz_id);
         const id = { '_id': req.params.quiz_id };
-        console.log(id);
         const result = await quizes.findOneAndDelete(id);
-        console.log(result);
         res.status(201).json();
     } catch (error) {
         console.error('Failed to delete quiz:', error);

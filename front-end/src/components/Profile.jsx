@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +20,6 @@ const Profile = () => {
             .split("; ")
             .find((row) => row.startsWith("Authtoken"))
             ?.split("=")[1];
-        console.log("document.cookie value", authToken);
         if (!authToken) {
             navigate('/');
         } else if (authToken) {
@@ -86,8 +86,8 @@ const Profile = () => {
             const response = await fetch(`/api/delete/${quiz._id}`, {
                 method: 'DELETE',
             });
+            // eslint-disable-next-line no-unused-vars
             const data = await response.json();
-            console.log(data);
             setQuizzes(quizzes.filter(q => q._id !== quiz._id));
         } catch (error) {
             console.log(error);
@@ -114,7 +114,6 @@ const Profile = () => {
                 body: JSON.stringify({ active: status === 'true', id }),
             });
             const data = await response.json();
-            console.log(data);
 
             // Update the quiz status locally
             setQuizzes(quizzes.map(quiz => quiz._id === id ? { ...quiz, active: status === 'true' } : quiz));
@@ -163,7 +162,6 @@ const Profile = () => {
     //         },
     //     ],
     // };
-    console.log(userData,'userdata')
 
     return (
         <>

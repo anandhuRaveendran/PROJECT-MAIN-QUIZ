@@ -21,7 +21,6 @@ const upload = multer({ storage: storage });
 
 router.post('/signup', upload.single('profilePicture'), async (req, res) => {
   try {
-    console.log(req.body,'imagesignup')
     const { username, password, phone, email } = req.body;
     const profilePicture = req.file.filename; // Get the filename of the uploaded file
 
@@ -31,7 +30,6 @@ router.post('/signup', upload.single('profilePicture'), async (req, res) => {
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    console.log('err', error);
     res.status(500).json({ error: 'Registration failed' });
   }
 });
@@ -40,9 +38,7 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password} = req.body;
   
-    console.log(email, password);
     const user = await User.findOne({ email });
-    console.log(user, "user");
     if (!user) {
       return res.status(401).json({ error: "Authentication failed- User doesn't exist" });
     }
@@ -70,7 +66,6 @@ router.post("/login", async (req, res) => {
 
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "Login failed" });
   }
 });
@@ -88,7 +83,6 @@ router.get('/profile',verifyToken, async (req, res) => {
   try {
     // Assume userID is retrieved from the auth token or session
     // const userID = req.useremail;
-    console.log(req.email,'profile')
     const email=req.useremail
     const user = await User.findOne({email:email});
 
@@ -103,7 +97,6 @@ router.get('/profile',verifyToken, async (req, res) => {
       profilePicture: user.profilePicture,
     });
   } catch (error) {
-    console.log('err', error);
     res.status(500).json({ error: 'Failed to fetch profile' });
   }
 });
