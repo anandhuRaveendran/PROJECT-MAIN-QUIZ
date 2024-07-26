@@ -24,6 +24,7 @@ const Register = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [profilePicture, setProfilePicture] = useState(null);
   const [errors, setErrors] = useState({});
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -49,12 +50,16 @@ const Register = () => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('password', password);
+    formData.append('profilePicture', profilePicture);
+
     const response = await fetch('/api/signup', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, email, phone, password }),
+      body: formData,
     });
 
     const data = await response.json();
@@ -130,6 +135,12 @@ const Register = () => {
                 />
                 {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
                 
+                <input
+                  className="w-full px-5 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  type="file"
+                  onChange={(e) => setProfilePicture(e.target.files[0])}
+                />
+
                 <button
                   type="submit"
                   className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

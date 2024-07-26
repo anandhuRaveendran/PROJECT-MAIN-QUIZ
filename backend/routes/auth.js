@@ -4,17 +4,35 @@ const User = require("../Models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const multer = require('multer');
+const path = require('path');
+const verifyToken = require("../middleware/authMiddleware");
 
-router.post("/signup", async (req, res) => {
+// Set up Multer storage configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Destination folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Add a timestamp to the original file name
+  }
+});
+const upload = multer({ storage: storage });
+
+router.post('/signup', upload.single('profilePicture'), async (req, res) => {
   try {
+    console.log(req.body,'imagesignup')
     const { username, password, phone, email } = req.body;
+    const profilePicture = req.file.filename; // Get the filename of the uploaded file
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashedPassword, email, phone });
+    const user = new User({ username, password: hashedPassword, email, phone, profilePicture });
     await user.save();
-    res.status(201).json({ message: "User registered successfully" });
+
+    res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    console.log("err", error);
-    res.status(500).json({ error: "Registration failed" });
+    console.log('err', error);
+    res.status(500).json({ error: 'Registration failed' });
   }
 });
 
@@ -47,7 +65,9 @@ router.post("/login", async (req, res) => {
       message: "login success",
       token,
       useremail: user.email,
-      uername:user.username
+      uername: user.username,
+      profilePicture: user.profilePicture,
+
     });
   } catch (error) {
     console.log(error);
@@ -56,17 +76,36 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  const email = req.cookies.User;
-  if (email) {
-    delete userTokens[email];
-  }
 
   res.clearCookie("Authtoken");
   res.clearCookie("User");
+  res.clearCookie("username");
 
   res.status(200).send("Logout successful");
 });
 
+router.get('/profile',verifyToken, async (req, res) => {
+  try {
+    // Assume userID is retrieved from the auth token or session
+    // const userID = req.useremail;
+    console.log(req.email,'profile')
+    const email=req.useremail
+    const user = await User.findOne({email:email});
 
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      profilePicture: user.profilePicture,
+    });
+  } catch (error) {
+    console.log('err', error);
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+});
 
 module.exports = router;

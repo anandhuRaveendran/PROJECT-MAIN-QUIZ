@@ -93,7 +93,7 @@ const CreateQuiz = () => {
     return (
 <>
   <div className="p-4 sm:ml-64">
-    <div className="p-4 border-2 rounded-lg bg-gray-100 dark:bg-gray-900 dark:border-gray-700 mt-[80px]">
+    {/* <div className="p-4 border-2 rounded-lg bg-gray-100 dark:bg-gray-900 dark:border-gray-700 mt-[80px]">
       <div>
         <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           Add a topic, a prompt or paste your excerpt here
@@ -158,7 +158,7 @@ const CreateQuiz = () => {
           Publish
         </button>
       </a>
-    </div>
+    </div> */}
 
     <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
       <form onSubmit={handleSubmit}>

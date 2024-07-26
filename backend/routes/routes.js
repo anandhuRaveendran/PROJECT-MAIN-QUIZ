@@ -116,6 +116,8 @@ router.get("/quizdetails/:id", async (req, res) => {
         console.log(quizid);
         const user_quizez = await results.find({ quizid: quizid });
         res.json(user_quizez);
+        console.log(res);
+
     } catch (error) {
         console.error('Failed to get quiz details:', error);
         res.status(500).json({ error: 'Failed to get quiz details' });

@@ -5,7 +5,7 @@ import Logout from './Logout';
 
 const NavBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
@@ -13,21 +13,22 @@ const NavBar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleSearch = () => {
-    // No action needed for search
-    // You can implement search or keep it as a placeholder
-  };
+  // const handleSearch = () => {
+  //   // No action needed for search
+  //   // You can implement search or keep it as a placeholder
+  // };
 
   return (
     <>
       <div className="fixed w-full top-0 z-10">
         <nav className="bg-white border-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-between p-4">
+
+          <div className="flex items-center space-x-4 flex-1 justify-end">
           <Link to="/home" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="src/assets/images/logo.svg" className="h-8" alt="quizapp Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">QuizApp</span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QuizApp</span>
           </Link>
-          <div className="flex items-center space-x-4 flex-1 justify-end">
-            <div className="relative flex flex-grow max-w-xs">
+            {/* <div className="relative flex flex-grow max-w-xs">
               <input
                 type="text"
                 id="search-navbar"
@@ -43,7 +44,7 @@ const NavBar = () => {
               >
                 Search
               </button>
-            </div>
+            </div> */}
             <button
               onClick={toggleSidebar}
               type="button"
