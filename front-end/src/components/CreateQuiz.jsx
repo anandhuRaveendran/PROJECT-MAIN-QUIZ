@@ -33,6 +33,15 @@ const CreateQuiz = () => {
         setEmail(decoded.useremail)
 
       }, []);
+      const validateAnswers = () => {
+        const errors = [];
+        questions.forEach((question, qIndex) => {
+          if (!question.options.includes(question.answer)) {
+            errors.push(`Question ${qIndex + 1}: The answer must be one of the options.`);
+          }
+        });
+        return errors;
+      };
       const handleQuestionChange = (index, value) => {
         const newQuestions = [...questions];
         newQuestions[index].question = value;
@@ -67,6 +76,11 @@ const CreateQuiz = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
+        const errors = validateAnswers();
+        if (errors.length > 0) {
+          alert(errors.join('\n'));
+          return;
+        }
         const creator = email;
         const joinid=isPrivate==true?unique_id.slice(0, 8):0;
         const active=true;
@@ -89,72 +103,7 @@ const CreateQuiz = () => {
     return (
 <>
   <div className="p-4 sm:ml-64">
-    {/* <div className="p-4 border-2 rounded-lg bg-gray-100 dark:bg-gray-900 dark:border-gray-700 mt-[80px]">
-      <div>
-        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Add a topic, a prompt or paste your excerpt here
-        </label>
-        <textarea
-          id="message"
-          rows="4"
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Write your thoughts here..."
-        ></textarea>
-      </div>
-      <form className="max-w-sm mt-4">
-        <label htmlFor="noofqns" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Number of Questions
-        </label>
-        <select
-          id="noofqns"
-          className="block w-full p-2.5 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option value="" disabled selected>Choose Number of Questions</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-          <option value="25">25</option>
-          <option value="30">30</option>
-        </select>
-      </form>
-      <div className="mt-4">
-        <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-          Category
-        </label>
-        <input
-          type="text"
-          id="category"
-          className="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Enter quiz category"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        className="inline-flex items-center mt-4 px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-      >
-        Generate Questions
-      </button>
 
-      <div className="mt-4 flex items-center p-4 border border-gray-200 rounded dark:border-gray-700">
-        <input
-          id="private-join"
-          type="checkbox"
-          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-blue-600"
-        />
-        <label htmlFor="private-join" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Join With JOIN ID (Private)
-        </label>
-      </div>
-      <a href="./viewquiz.html">
-        <button
-          type="button"
-          className="inline-flex ml-auto mt-4 px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-        >
-          Publish
-        </button>
-      </a>
-    </div> */}
 
     <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
       <form onSubmit={handleSubmit}>
