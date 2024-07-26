@@ -12,6 +12,9 @@ it's a platform for users can create,attend various quizs and personal profile f
 Install Docker in your system 
 Then copy the github link and clone
 ```bash
+git clone
+```
+```bash
 https://github.com/anandhuRaveendran/PROJECT-MAIN-QUIZ.git
 ```
 Open directory 
