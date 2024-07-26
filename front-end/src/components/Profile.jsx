@@ -66,7 +66,7 @@ const Profile = () => {
             try {
                 const res = await fetch('/api/myquizes');
                 const quizdata = await res.json();
-                setQuizzes(quizdata);
+              setQuizzes(quizdata);
             } catch (error) {
                 console.log('error', error);
             }
@@ -261,7 +261,9 @@ const Profile = () => {
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3">Quiz Name</th>
+                    <th scope="col" className="px-6 py-3">Quiz Name</th>
+                    <th scope="col" className="px-6 py-3">Join ID</th>
+
                                     <th scope="col" className="px-6 py-3">Status</th>
                                     <th scope="col" className="px-6 py-3">Details</th>
                                     <th scope="col" className="px-6 py-3">Delete</th>
@@ -275,7 +277,12 @@ const Profile = () => {
                                             <div className="pl-3">
                                                 <div className="text-base font-semibold">{quiz.quizTitle}</div>
                                             </div>
-                                        </th>
+                                    </th>
+                                    <td className="px-6 py-4">
+
+                                    <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                                <div className="text-base font-semibold">{quiz.joinid==0?'':quiz.joinid}</div>
+                                        </th></td>
                                         <td className="px-6 py-4">
                                             <select
                                                 value={quiz.active ? 'true' : 'false'}

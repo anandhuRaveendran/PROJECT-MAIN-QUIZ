@@ -44,7 +44,7 @@ const QuizDetails = () => {
                     <div className="text-base font-semibold">{item.username}</div>
                   </div>
                 </th>
-                <td className="px-6 py-4">{item.marksObtained * 10}</td>
+                <td className="px-6 py-4">{item.marksObtained}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center">
                     <div className={`h-2.5 w-2.5 rounded-full ${item.marksObtained >= 3 ? 'bg-green-500' : 'bg-red-500'} mr-2`}></div>

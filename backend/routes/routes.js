@@ -7,7 +7,7 @@ const verifyToken = require("../middleware/authMiddleware");
 router.get("/get-quiz/:joinID", async (req, res) => {
     try {
         const id = req.params.joinID;
-        const quizdata = await quizes.findOne({ joinid: id });
+        const quizdata = await quizes.findOne({ joinid: id,active:'true' });
         res.json(quizdata);
     } catch (error) {
         console.error('Failed to get quiz:', error);
