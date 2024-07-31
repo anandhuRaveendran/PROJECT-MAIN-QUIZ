@@ -11,7 +11,7 @@ const verifyToken = require("../middleware/authMiddleware");
 // Set up Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Destination folder
+    cb(null, 'uploads/profilePicture'); // Destination folder
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)); // Add a timestamp to the original file name
@@ -22,6 +22,7 @@ const upload = multer({ storage: storage });
 router.post('/signup', upload.single('profilePicture'), async (req, res) => {
   try {
     const { username, password, phone, email } = req.body;
+    console.log(req.file.filename,'picture')
     const profilePicture = req.file.filename; // Get the filename of the uploaded file
 
     const hashedPassword = await bcrypt.hash(password, 10);

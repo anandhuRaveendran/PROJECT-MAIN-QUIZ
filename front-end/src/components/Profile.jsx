@@ -170,8 +170,8 @@ const Profile = () => {
             <div className="w-32 h-32 md:w-36 md:h-36 object-center object-cover rounded-full transition-all duration-500" alt="" >
             {userData.profilePicture ? (
           <img
-            src={`/uploads/${userData.profilePicture}`}
-            alt=""
+           src="src/assets/images/profile.svg"
+            alt="profile"
             className="rounded-full w-32 h-32"
           />
         ) : (
@@ -202,7 +202,7 @@ const Profile = () => {
                 <div className="p-4 border-2 bg-white dark:bg-gray-800 rounded-lg dark:border-gray-700 mt-[80px]">
                     <p className="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">History</p>
                     <div className="shadow-md sm:rounded-lg overflow-x-auto">
-                        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 pb-4 bg-gray-50 dark:bg-gray-900">
+                        {/* <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 pb-4 bg-gray-50 dark:bg-gray-900">
                             <label htmlFor="table-search" className="sr-only">Search</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -212,7 +212,7 @@ const Profile = () => {
                                 </div>
                                 <input type="text" id="table-search-users" className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full md:w-80 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users" />
                             </div>
-                        </div>
+                        </div> */}
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -247,7 +247,7 @@ const Profile = () => {
                 <div className="p-4 border-2 bg-white dark:bg-gray-800 rounded-lg dark:border-gray-700 mt-[80px]">
                     <p className="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">My Quizzes</p>
                     <div className="shadow-md sm:rounded-lg overflow-x-auto">
-                        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 pb-4 bg-gray-50 dark:bg-gray-900">
+                        {/* <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 pb-4 bg-gray-50 dark:bg-gray-900">
                             <label htmlFor="table-search" className="sr-only">Search</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -257,7 +257,7 @@ const Profile = () => {
                                 </div>
                                 <input type="text" id="table-search-users" className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full md:w-80 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users" />
                             </div>
-                        </div>
+                        </div> */}
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>

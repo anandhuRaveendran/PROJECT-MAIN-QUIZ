@@ -127,7 +127,7 @@ router.get("/results", verifyToken, async (req, res) => {
     }
 });
 
-router.delete('/delete/:quiz_id', async (req, res) => {
+router.delete('/delete/:quiz_id',verifyToken, async (req, res) => {
     try {
         const id = { '_id': req.params.quiz_id };
         const result = await quizes.findOneAndDelete(id);
